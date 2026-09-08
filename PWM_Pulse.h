@@ -1,4 +1,4 @@
-/* Version 02
+/* Version 03
  * create in 20141119
  * Modified in 20260908
  * This library generates 3 parallel PWM-modulated pulse outputs on ATmega2560.
