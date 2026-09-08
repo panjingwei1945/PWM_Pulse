@@ -12,7 +12,7 @@
 - [ ] Measure the outputs on hardware; compilation does not validate timing or optical power.
 - [ ] Update README to remove preparation placeholders before release.
 
-The implementation and original example are preserved during packaging. Source files remain in the root, which Arduino supports; examples reside under `examples/`.
+The implementation is preserved during packaging. Source files remain in the root, which Arduino supports; examples reside under `examples/`. Each example is intended to compile independently.
 
 ## Local checks
 

@@ -24,7 +24,7 @@ All channels share an approximately 19.98 kHz PWM carrier. Pulse timing uses 1 m
 
 Until Library Manager registration is complete, put this library folder in your Arduino sketchbook's `libraries` directory, or import a ZIP containing the library via **Sketch > Include Library > Add .ZIP Library**.
 
-Select **Arduino Mega or Mega 2560** from the Arduino AVR Boards package. Open **File > Examples > PWM_Pulse > example_version001** after installation.
+Select **Arduino Mega or Mega 2560** from the Arduino AVR Boards package. Open **File > Examples > PWM_Pulse** after installation. The examples include `example_version001`, `BasicPulseTrain`, `PreTriggerDelay` and `CancelOutput`.
 
 ## Quick start
 
