@@ -20,7 +20,7 @@ Run from the library root with Arduino CLI, Arduino Lint and Arduino AVR Boards 
 
 ```sh
 arduino-lint --library-manager submit --compliance strict /absolute/path/to/PWM_Pulse
-arduino-cli compile --fqbn arduino:avr:mega --library . examples/example_version001
+arduino-cli compile --fqbn arduino:avr:mega --library . examples/ThreeChannelOutput
 ```
 
 Review both commands' output rather than suppressing failures. Metadata has been filled in, but that alone does not establish that validation passes.
