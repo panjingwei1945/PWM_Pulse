@@ -1,6 +1,6 @@
 # PWM_Pulse
 
-Three-channel PWM-modulated pulse output for **Arduino Mega 2560 (ATmega2560, 16 MHz)**, intended for controlling a laser driver's modulation input. This library from Ninglong Xu's lab (xulab). 
+Three-channel PWM-modulated pulse output for **Arduino Mega 2560 (ATmega2560, 16 MHz)**, intended for controlling a laser driver's modulation input. Developed in Ninglong Xu's lab (xulab).
 
 Current version: `v0.3.3`.
 
@@ -22,9 +22,16 @@ All channels share an approximately 19.98 kHz PWM carrier. Pulse timing uses 1 m
 
 ## Installation
 
-Until Library Manager registration is complete, put this library folder in your Arduino sketchbook's `libraries` directory, or import a ZIP containing the library via **Sketch > Include Library > Add .ZIP Library**.
+Copy the library folder into your Arduino sketchbook's `libraries` directory, or install a ZIP containing the library via **Sketch > Include Library > Add .ZIP Library**.
 
-Select **Arduino Mega or Mega 2560** from the Arduino AVR Boards package. Open **File > Examples > PWM_Pulse** after installation. The examples include `ThreeChannelOutput`, `MultiplePulses`, `PreTriggerDelay` and `CancelAnytime`.
+Select **Arduino Mega or Mega 2560** from the Arduino AVR Boards package. Open **File > Examples > PWM_Pulse** after installation.
+
+| Example | Function |
+| --- | --- |
+| `MultiplePulses` | Generate repeated pulses. |
+| `PreTriggerDelay` | Delay the start of output. |
+| `CancelAnytime` | Stop output early, directly or with ramp-down. |
+| `ThreeChannelOutput` | Run three output channels together. |
 
 ## Quick start
 
@@ -36,7 +43,7 @@ void setup() {
 }
 
 void loop() {
-  // D8: 10 Hz pulses, 20 ms ON, 50% PWM setting, for 500 ms.
+  // D8: 10 Hz pulses, 20 ms ON, 50% power setting, for 500 ms.
   PWM_PULSE.p1_multipulses(500, 10.0f, 20, 0, 50);
   delay(2000);  // Let the task finish before reusing this channel.
 }
@@ -51,11 +58,11 @@ Call `PWM_PULSE.init()` once before starting outputs. In the following table, re
 | Method | Behavior |
 | --- | --- |
 | `px_multipulses(duration, fq, p_width, pre_trg_delay, power)` | Run a pulse train for the specified duration. |
-| `px_constant(duration, pre_trg_delay, power)` | Maintain the PWM setting for the specified duration. |
-| `px_multipulses_ramp(duration, fq, p_width, pre_trg_delay, power, ramp_step)` | Append a continuous ramp down after a pulse train. |
-| `px_constant_ramp(duration, pre_trg_delay, power, ramp_step)` | Append a ramp down after constant output. |
+| `px_constant(duration, pre_trg_delay, power)` | Maintain a constant power setting for the specified duration. |
+| `px_multipulses_ramp(duration, fq, p_width, pre_trg_delay, power, ramp_step)` | Run a pulse train, then gradually reduce power to zero. |
+| `px_constant_ramp(duration, pre_trg_delay, power, ramp_step)` | Maintain constant output, then gradually reduce power to zero. |
 | `px_cancel()` | Request termination at the next timing interrupt. |
-| `px_cancel_ramp(ramp_step)` | Request early termination through ramp down. |
+| `px_cancel_ramp(ramp_step)` | Stop output early by gradually reducing power to zero. |
 
 | Parameter | Meaning |
 | --- | --- |
@@ -63,10 +70,8 @@ Call `PWM_PULSE.init()` once before starting outputs. In the following table, re
 | `fq` | Finite positive pulse frequency in Hz, distinct from the PWM carrier. |
 | `p_width` | Positive ON duration per pulse in ms. For separate pulses, leave at least 1 ms of quantized OFF time. |
 | `pre_trg_delay` | Delay before output in ms; zero starts immediately. |
-| `power` | Ramp-down duration in ms (approximately). |
-| `ramp_step` | Positive step count; one step per ms, giving approximately this many ms of ramp time. |
-
-The included original example produces a 1 ms marker on D43, then runs three constant outputs for 500 ms at settings of 100, 60 and 20, followed by approximately 1000 ms of ramp down and a 2000 ms pause.
+| `power` | Power setting in percent (0–100), controlled by PWM duty cycle. |
+| `ramp_step` | Ramp-down steps; each step takes approximately 1 ms. Use a positive value. |
 
 ## Current limitations
 
