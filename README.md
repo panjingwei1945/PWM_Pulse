@@ -63,7 +63,7 @@ Call `PWM_PULSE.init()` once before starting outputs. In the following table, re
 | `fq` | Finite positive pulse frequency in Hz, distinct from the PWM carrier. |
 | `p_width` | Positive ON duration per pulse in ms. For separate pulses, leave at least 1 ms of quantized OFF time. |
 | `pre_trg_delay` | Delay before output in ms; zero starts immediately. |
-| `power` | Setting from 0 to 100, mapped to PWM compare values from 0 to 800; not calibrated optical power. |
+| `power` | Ramp-down duration in ms (approximately). |
 | `ramp_step` | Positive step count; one step per ms, giving approximately this many ms of ramp time. |
 
 The included original example produces a 1 ms marker on D43, then runs three constant outputs for 500 ms at settings of 100, 60 and 20, followed by approximately 1000 ms of ramp down and a 2000 ms pause.
