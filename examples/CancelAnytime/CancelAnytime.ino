@@ -27,6 +27,6 @@ void loop() {
   PWM_PULSE.p1_constant(OUTPUT_DURATION_MS, 0, POWER_PERCENT);
   delay(CANCEL_AFTER_MS);
   PWM_PULSE.p1_cancel_ramp(RAMP_STEPS); // Start ramp-down instead of switching off directly.
-  delay(RAMP_STEPS + 1); // Allow ramp-down to finish before the rest interval.
+  delay(RAMP_STEPS); // Allow ramp-down to finish before the rest interval.
   delay(2000);
 }

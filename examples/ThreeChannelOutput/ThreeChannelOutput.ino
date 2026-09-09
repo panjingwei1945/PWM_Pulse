@@ -33,6 +33,6 @@ void loop() {
   PWM_PULSE.p3_constant_ramp(OUTPUT_DURATION_MS, PRE_TRIGGER_DELAY_MS, POWER_P3, RAMP_TIME_MS);
 
   // Include delay, output time and approximate ramp time before channel reuse.
-  delay(PRE_TRIGGER_DELAY_MS + OUTPUT_DURATION_MS + RAMP_TIME_MS + 20);
+  delay(PRE_TRIGGER_DELAY_MS + OUTPUT_DURATION_MS + RAMP_TIME_MS);
   delay(REST_INTERVAL_MS);
 }

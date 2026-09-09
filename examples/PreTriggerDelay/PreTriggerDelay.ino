@@ -23,6 +23,6 @@ void loop() {
   delay(1);
   digitalWrite(MARKER_PIN, LOW);
   PWM_PULSE.p1_constant(OUTPUT_DURATION_MS, PRE_TRIGGER_DELAY_MS, POWER_PERCENT);
-  delay(PRE_TRIGGER_DELAY_MS + OUTPUT_DURATION_MS + 20);
+  delay(PRE_TRIGGER_DELAY_MS + OUTPUT_DURATION_MS);
   delay(2000);
 }

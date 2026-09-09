@@ -18,6 +18,6 @@ void setup() { PWM_PULSE.init(); }
 void loop() {
   PWM_PULSE.p1_multipulses(DURATION_MS, PULSE_FREQUENCY_HZ, PULSE_WIDTH_MS,
                            PRE_TRIGGER_DELAY_MS, POWER_PERCENT);
-  delay(PRE_TRIGGER_DELAY_MS + DURATION_MS + 20);
+  delay(PRE_TRIGGER_DELAY_MS + DURATION_MS);
   delay(2000);
 }
