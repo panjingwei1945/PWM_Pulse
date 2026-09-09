@@ -66,7 +66,7 @@ Call `PWM_PULSE.init()` once before starting outputs. In the following table, re
 
 | Parameter | Meaning |
 | --- | --- |
-| `duration` | Positive output duration in ms, excluding delay and ramp time. |
+| `duration` | Positive output duration in ms, excluding predelay and ramp time. |
 | `fq` | Finite positive pulse frequency in Hz, distinct from the PWM carrier. |
 | `p_width` | Positive ON duration per pulse in ms. For separate pulses, leave at least 1 ms of quantized OFF time. |
 | `pre_trg_delay` | Delay before output in ms; zero starts immediately. |
