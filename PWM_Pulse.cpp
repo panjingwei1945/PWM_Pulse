@@ -5,6 +5,7 @@
 * Timer4 generates PWM on D8/D7/D6; Timer1/3/5 control p1/p2/p3 timing.
 */
 #include "PWM_Pulse.h"
+#include <util/atomic.h>
 
 #define PRE_SCALE_64DIV (_BV(CS10) | _BV(CS11)) //4us
 #define CTC_ISI 249 // CTC period: (249 + 1) * 4us = 1ms
@@ -33,18 +34,15 @@ uint8_t t_TCCRnC;
 /***********t4_pwm***************/
 /***********t4_pwm***************/
 inline static void t4_PWM_init() {
-	_SET(DDRH, DDH3); // Set PH3 / OC4A / D6 to output mode.
-	_CLEAR(PORTH, PORTH3);
-	_SET(DDRH, DDH4); // Set PH4 / OC4B / D7 to output mode.
-	_CLEAR(PORTH, PORTH4);
-	_SET(DDRH, DDH5); // Set PH5 / OC4C / D8 to output mode.
-	_CLEAR(PORTH, PORTH5);
+	static bool initialized = false;
+	if (initialized) return;
+	TCCR4B = 0; // Stop the shared timer while configuring it once.
 
 	t_TCCRnA = TCCR4A;
 	_CLEAR(t_TCCRnA, WGM40); _SET(t_TCCRnA, WGM41); // Fast PWM, TOP: ICR4.
-	_SET(t_TCCRnA, COM4A1); _CLEAR(t_TCCRnA, COM4A0); // Non-inverting mode.
-	_SET(t_TCCRnA, COM4B1); _CLEAR(t_TCCRnA, COM4B0); // Non-inverting mode.
-	_SET(t_TCCRnA, COM4C1); _CLEAR(t_TCCRnA, COM4C0); // Non-inverting mode.
+	// Connect only the outputs explicitly initialized by the caller.
+	t_TCCRnA &= ~(_BV(COM4A1) | _BV(COM4A0) | _BV(COM4B1) |
+	                _BV(COM4B0) | _BV(COM4C1) | _BV(COM4C0));
 
 	t_TCCRnB = TCCR4B;
 	_SET(t_TCCRnB, CS40); _CLEAR(t_TCCRnB, CS41); _CLEAR(t_TCCRnB, CS42); // No prescaling.
@@ -66,6 +64,7 @@ inline static void t4_PWM_init() {
 	TCCR4A = t_TCCRnA;
 	TCCR4B = t_TCCRnB;
 	TCCR4C = 0;
+	initialized = true;
 }
 
 void PWM_write4A(uint16_t data)
@@ -638,13 +637,76 @@ void PWM_PULSE_Class::p3_cancel_ramp(int rampdown_stepnum)
 /***************init********************/
 void PWM_PULSE_Class::init()
 {
-	t4_PWM_init();
-	t1_init();
-	t3_init();
-	t5_init();
+	p1_init();
+	p2_init();
+	p3_init();
+	// Preserve the original init() behavior. Per-channel init preserves SREG.
 	sei();
 
 }
 
+
+void PWM_PULSE_Class::p1_init()
+{
+	static bool initialized = false;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+	{
+		if (!initialized)
+		{
+			t4_PWM_init();
+			t1_init_global();
+			t1_init();
+			TIFR1 = _BV(OCF1A); // Clear a stale compare interrupt before use.
+			PWM_write4C(0);
+			_CLEAR(PORTH, PORTH5);
+			_SET(DDRH, DDH5);
+			_SET(TCCR4A, COM4C1);
+			_CLEAR(TCCR4A, COM4C0);
+			initialized = true;
+		}
+	}
+}
+
+void PWM_PULSE_Class::p2_init()
+{
+	static bool initialized = false;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+	{
+		if (!initialized)
+		{
+			t4_PWM_init();
+			t3_init_global();
+			t3_init();
+			TIFR3 = _BV(OCF3A); // Clear a stale compare interrupt before use.
+			PWM_write4B(0);
+			_CLEAR(PORTH, PORTH4);
+			_SET(DDRH, DDH4);
+			_SET(TCCR4A, COM4B1);
+			_CLEAR(TCCR4A, COM4B0);
+			initialized = true;
+		}
+	}
+}
+
+void PWM_PULSE_Class::p3_init()
+{
+	static bool initialized = false;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+	{
+		if (!initialized)
+		{
+			t4_PWM_init();
+			t5_init_global();
+			t5_init();
+			TIFR5 = _BV(OCF5A); // Clear a stale compare interrupt before use.
+			PWM_write4A(0);
+			_CLEAR(PORTH, PORTH3);
+			_SET(DDRH, DDH3);
+			_SET(TCCR4A, COM4A1);
+			_CLEAR(TCCR4A, COM4A0);
+			initialized = true;
+		}
+	}
+}
 
 PWM_PULSE_Class PWM_PULSE;

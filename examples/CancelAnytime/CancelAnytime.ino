@@ -13,7 +13,7 @@ const int RAMP_STEPS = 100; // Ramp-down steps, approximately 1 ms per step.
 // Power setting (0-100%), applied as PWM duty cycle; not calibrated optical power.
 const int POWER_PERCENT = 40; // Power setting in percent (0-100).
 
-void setup() { PWM_PULSE.init(); }
+void setup() { PWM_PULSE.p1_init(); }
 
 void loop() {
   // Direct cancellation.

@@ -13,7 +13,7 @@ const uint32_t PRE_TRIGGER_DELAY_MS = 0; // Delay before output starts in ms.
 // Power setting (0-100%), applied as PWM duty cycle; not calibrated optical power.
 const int POWER_PERCENT = 50; // Power setting in percent (0-100).
 
-void setup() { PWM_PULSE.init(); }
+void setup() { PWM_PULSE.p1_init(); }
 
 void loop() {
   PWM_PULSE.p1_multipulses(DURATION_MS, PULSE_FREQUENCY_HZ, PULSE_WIDTH_MS,

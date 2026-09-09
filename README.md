@@ -18,7 +18,7 @@ Author and maintainer: Jingwei Pan <jwpan@ion.ac.cn>.
 
 Connect the chosen output to a compatible laser driver's modulation input and connect the grounds. These pins provide control signals, not laser drive current. Check the driver's input requirements before connecting it.
 
-All channels share an approximately 19.98 kHz PWM carrier. Pulse timing uses 1 ms ticks. Do not independently reconfigure Timer1, Timer3, Timer4 or Timer5 from other code or libraries. The `avr` metadata denotes the processor architecture; it does **not** imply support for Uno, Nano or every AVR board.
+All channels share an approximately 19.98 kHz PWM carrier. Pulse timing uses 1 ms ticks. Do not independently reconfigure Timer4 or an initialized channel's timing timer. Unused channels' timing timers are left unchanged, but this library still defines the Timer1/3/5 compare-A interrupt handlers, so other libraries defining those handlers will conflict. The `avr` metadata denotes the processor architecture; it does **not** imply support for Uno, Nano or every AVR board.
 
 ## Installation
 
@@ -53,7 +53,17 @@ Output tasks run in interrupts after the call returns. Application `delay()` cal
 
 ## API
 
-Call `PWM_PULSE.init()` once before starting outputs. In the following table, replace `px` with `p1`, `p2` or `p3`.
+Call `PWM_PULSE.init()` to initialize all channels, or initialize only the channels you use:
+
+```cpp
+PWM_PULSE.p1_init(); // D8 and Timer1.
+PWM_PULSE.p2_init(); // D7 and Timer3; does not reset p1.
+PWM_PULSE.p3_init(); // D6 and Timer5; does not reset p1 or p2.
+```
+
+Timer4 is configured once and shared by all channels. Repeated initialization does not reset active outputs. Per-channel initialization preserves the global interrupt state; interrupts must be enabled for pulse timing. The original `init()` enables global interrupts as before.
+
+In the following table, replace `px` with `p1`, `p2` or `p3`.
 
 | Method | Behavior |
 | --- | --- |

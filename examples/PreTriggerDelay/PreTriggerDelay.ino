@@ -15,7 +15,7 @@ const int POWER_PERCENT = 50; // Power setting in percent (0-100).
 void setup() {
   pinMode(MARKER_PIN, OUTPUT);
   digitalWrite(MARKER_PIN, LOW);
-  PWM_PULSE.init();
+  PWM_PULSE.p1_init();
 }
 
 void loop() {

@@ -10,15 +10,21 @@
  *   p3        D6            Timer4 / OC4A    Timer5
  * All channels share an approximately 19.98 kHz PWM carrier. Each channel
  * has separate power and pulse timing settings, with a 1 ms timing tick.
- * Other code must not independently reconfigure Timer1/3/4/5. These APIs
+ * Other code must not reconfigure Timer4 or an initialized channel's timer. These APIs
  * do not accept arbitrary output pins or a trigger polarity argument.
  *
- * Call PWM_PULSE.init() before starting outputs. Below, px means p1, p2
+ * Call PWM_PULSE.init() for all channels, or px_init() for each used channel.
+ * Below, px means p1, p2
  * or p3. Output tasks run in interrupts after the API call returns.
  *
  * APIs:
  *   init()
- *     Configure PWM and timing timers, and enable global interrupts.
+ *     Initialize all channels and enable global interrupts.
+ *   px_init()
+ *     Initialize one channel and its timing timer; preserve interrupt state.
+ *     Shared Timer4 is configured once. Repeated initialization is a no-op
+ *     for initialized channels, so active outputs are not reset.
+ *     Timer1/3/5 interrupt vectors remain defined even for unused channels.
  *   px_multipulses(duration, fq, p_width, pre_trg_delay, power)
  *     After the delay, generate pulses for duration ms. ON uses the set
  *     PWM power; OFF writes a PWM compare value of zero. The final pulse
@@ -79,7 +85,10 @@ class PWM_PULSE_Class
 private:
 
 public:
-	void init();
+	void init(); // Initialize all channels; enable global interrupts.
+	void p1_init(); // Initialize D8 and Timer1 once; preserve interrupt state.
+	void p2_init(); // Initialize D7 and Timer3 once; preserve interrupt state.
+	void p3_init(); // Initialize D6 and Timer5 once; preserve interrupt state.
 	void p1_multipulses(unsigned long duration, float fq, unsigned long p_width, unsigned long pre_trg_delay, int power);
 	void p1_constant( uint32_t duration, unsigned long pre_trg_delay, int power);
 	void p1_constant_ramp( uint32_t duration, unsigned long pre_trg_delay, int power,int ramp_step);
