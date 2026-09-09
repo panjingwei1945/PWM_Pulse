@@ -20,9 +20,7 @@ void setup() {
   Serial.begin(115200);
   pinMode(MARKER_PIN, OUTPUT);
   digitalWrite(MARKER_PIN, LOW);
-  PWM_PULSE.p1_init();
-  PWM_PULSE.p2_init();
-  PWM_PULSE.p3_init();
+  PWM_PULSE.init(); // Initialize all three channels.
 }
 
 void loop() {
