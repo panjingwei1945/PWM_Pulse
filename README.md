@@ -2,7 +2,7 @@
 
 Three-channel PWM-modulated pulse output for **Arduino Mega 2560 (ATmega2560, 16 MHz)**, intended for controlling a laser driver's modulation input. Developed in Ninglong Xu's lab (xulab).
 
-Current version: `v0.3.4`.
+Current version: `v0.3.5`.
 
 Repository: [panjingwei1945/PWM_Pulse](https://github.com/panjingwei1945/PWM_Pulse).
 

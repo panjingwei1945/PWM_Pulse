@@ -4,7 +4,7 @@
 
 - [x] Set author and maintainer to Jingwei Pan, with public contact jwpan@ion.ac.cn.
 - [x] Set `url` to https://github.com/panjingwei1945/PWM_Pulse.
-- [ ] Confirm the release version `0.3.4` and library name `PWM_Pulse`.
+- [ ] Confirm the release version `0.3.5` and library name `PWM_Pulse`.
 - [ ] Check the current Library Manager index for a case-insensitive name collision.
 - [x] Add the selected MIT License with copyright attribution to Jingwei Pan; update README.
 - [x] Run Arduino Lint in submission mode and resolve metadata issues (2026-09-08: strict check, no errors or warnings).
