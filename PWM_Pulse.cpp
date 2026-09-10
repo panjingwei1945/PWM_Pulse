@@ -263,10 +263,12 @@ void PWM_PULSE_Class::p1_constant_ramp( uint32_t duration, unsigned long pre_trg
 
 void PWM_PULSE_Class::p1_cancel()
 {
-	t5_PRETRG_DELAY_COUT_NUM = 0;
-	t5_RAMPDOWN_FLAG = 0;
-	t5_DUR_COUT_NUM = 0;
-	PWM_write4A(0); // Turn the PWM output off immediately; Timer5 clears state on its next tick.
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+	{
+		_t5_stop();
+		PWM_write4A(0);
+		t5_init_global();
+	}
 }
 
 void PWM_PULSE_Class::p1_cancel_ramp(int rampdown_stepnum)
@@ -445,10 +447,12 @@ void PWM_PULSE_Class::p2_constant_ramp( uint32_t duration, unsigned long pre_trg
 
 void PWM_PULSE_Class::p2_cancel()
 {
-	t3_PRETRG_DELAY_COUT_NUM = 0;
-	t3_RAMPDOWN_FLAG = 0;
-	t3_DUR_COUT_NUM = 0;
-	PWM_write4B(0); // Turn the PWM output off immediately; Timer3 clears state on its next tick.
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+	{
+		_t3_stop();
+		PWM_write4B(0);
+		t3_init_global();
+	}
 }
 
 void PWM_PULSE_Class::p2_cancel_ramp(int rampdown_stepnum)
@@ -628,10 +632,12 @@ void PWM_PULSE_Class::p3_constant_ramp( uint32_t duration, unsigned long pre_trg
 
 void PWM_PULSE_Class::p3_cancel()
 {
-	t1_PRETRG_DELAY_COUT_NUM = 0;
-	t1_RAMPDOWN_FLAG = 0;
-	t1_DUR_COUT_NUM = 0;
-	PWM_write4C(0); // Turn the PWM output off immediately; Timer1 clears state on its next tick.
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+	{
+		_t1_stop();
+		PWM_write4C(0);
+		t1_init_global();
+	}
 }
 
 void PWM_PULSE_Class::p3_cancel_ramp(int rampdown_stepnum)
