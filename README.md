@@ -28,6 +28,7 @@ Select **Arduino Mega or Mega 2560** from the Arduino AVR Boards package. Open *
 
 | Example | Function |
 | --- | --- |
+| `GettingStarted` | Basic constant output with `p1_constant()`. |
 | `MultiplePulses` | Generate repeated pulses. |
 | `PreTriggerDelay` | Delay the start of output. |
 | `CancelAnytime` | Stop output early, directly or with ramp-down. |
