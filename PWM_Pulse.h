@@ -1,4 +1,4 @@
-/* Version v0.3.6
+/* Version v0.4.1
  * create in 20141119
  * Modified in 20260908
  * Three PWM-modulated pulse outputs on ATmega2560, configured for 16 MHz.
