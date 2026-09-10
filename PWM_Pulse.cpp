@@ -241,6 +241,7 @@ void PWM_PULSE_Class::p1_multipulses_ramp(unsigned long duration, float fq, unsi
 {
 	t5_RAMPSTEPNUM = rampdown_stepnum;
 	t5_POWER_RAMPSTEP = ramp_cal(power * 8, rampdown_stepnum);
+	t5_RAMPCOUNTER = 0;
 	t5_RAMPDOWN_FLAG = 1;
 	p1_multipulses(duration, fq, p_width, pre_trg_delay, power);
 }
@@ -255,6 +256,7 @@ void PWM_PULSE_Class::p1_constant_ramp( uint32_t duration, unsigned long pre_trg
 {
 	t5_RAMPSTEPNUM = rampdown_stepnum;
 	t5_POWER_RAMPSTEP = ramp_cal(power * 8, rampdown_stepnum);
+	t5_RAMPCOUNTER = 0;
 	t5_RAMPDOWN_FLAG = 1;
 	p1_constant(duration, pre_trg_delay, power);
 }
@@ -272,6 +274,7 @@ void PWM_PULSE_Class::p1_cancel_ramp(int rampdown_stepnum)
 	t5_PRETRG_DELAY_COUT_NUM = 0;
 	t5_RAMPSTEPNUM = rampdown_stepnum;
 	t5_POWER_RAMPSTEP = ramp_cal(t5_REAL_PW,rampdown_stepnum);
+	t5_RAMPCOUNTER = 0;
 	t5_RAMPDOWN_FLAG = 1;
 	t5_DUR_COUT_NUM = 0;
 }
@@ -420,6 +423,7 @@ void PWM_PULSE_Class::p2_multipulses_ramp(unsigned long duration, float fq, unsi
 {
 	t3_RAMPSTEPNUM = rampdown_stepnum;
 	t3_POWER_RAMPSTEP = ramp_cal(power * 8, rampdown_stepnum);
+	t3_RAMPCOUNTER = 0;
 	t3_RAMPDOWN_FLAG = 1;
 	p2_multipulses(duration, fq, p_width, pre_trg_delay, power);
 }
@@ -434,6 +438,7 @@ void PWM_PULSE_Class::p2_constant_ramp( uint32_t duration, unsigned long pre_trg
 {
 	t3_RAMPSTEPNUM = rampdown_stepnum;
 	t3_POWER_RAMPSTEP = ramp_cal(power * 8, rampdown_stepnum);
+	t3_RAMPCOUNTER = 0;
 	t3_RAMPDOWN_FLAG = 1;
 	p2_constant(duration, pre_trg_delay, power);
 }
@@ -451,6 +456,7 @@ void PWM_PULSE_Class::p2_cancel_ramp(int rampdown_stepnum)
 	t3_PRETRG_DELAY_COUT_NUM = 0;
 	t3_RAMPSTEPNUM = rampdown_stepnum;
 	t3_POWER_RAMPSTEP = ramp_cal(t3_REAL_PW,rampdown_stepnum);
+	t3_RAMPCOUNTER = 0;
 	t3_RAMPDOWN_FLAG = 1;
 	t3_DUR_COUT_NUM = 0;
 }
@@ -600,6 +606,7 @@ void PWM_PULSE_Class::p3_multipulses_ramp(unsigned long duration, float fq, unsi
 {
 	t1_RAMPSTEPNUM = rampdown_stepnum;
 	t1_POWER_RAMPSTEP = ramp_cal(power * 8, rampdown_stepnum);
+	t1_RAMPCOUNTER = 0;
 	t1_RAMPDOWN_FLAG = 1;
 	p3_multipulses(duration, fq, p_width, pre_trg_delay, power);
 }
@@ -614,6 +621,7 @@ void PWM_PULSE_Class::p3_constant_ramp( uint32_t duration, unsigned long pre_trg
 {
 	t1_RAMPSTEPNUM = rampdown_stepnum;
 	t1_POWER_RAMPSTEP = ramp_cal(power * 8, rampdown_stepnum);
+	t1_RAMPCOUNTER = 0;
 	t1_RAMPDOWN_FLAG = 1;
 	p3_constant(duration, pre_trg_delay, power);
 }
@@ -631,6 +639,7 @@ void PWM_PULSE_Class::p3_cancel_ramp(int rampdown_stepnum)
 	t1_PRETRG_DELAY_COUT_NUM = 0;
 	t1_RAMPSTEPNUM = rampdown_stepnum;
 	t1_POWER_RAMPSTEP = ramp_cal(t1_REAL_PW,rampdown_stepnum);
+	t1_RAMPCOUNTER = 0;
 	t1_RAMPDOWN_FLAG = 1;
 	t1_DUR_COUT_NUM = 0;
 }
