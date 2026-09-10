@@ -12,9 +12,9 @@ Author and maintainer: Jingwei Pan <jwpan@ion.ac.cn>.
 
 | Channel | Arduino pin | PWM source | Timing source |
 | --- | --- | --- | --- |
-| p1 | D8 | Timer4 / OC4C | Timer1 |
+| p1 | D6 | Timer4 / OC4A | Timer5 |
 | p2 | D7 | Timer4 / OC4B | Timer3 |
-| p3 | D6 | Timer4 / OC4A | Timer5 |
+| p3 | D8 | Timer4 / OC4C | Timer1 |
 
 Connect the chosen output to a compatible laser driver's modulation input and connect the grounds. These pins provide control signals, not laser drive current. Check the driver's input requirements before connecting it.
 
@@ -43,7 +43,7 @@ void setup() {
 }
 
 void loop() {
-  // D8: 10 Hz pulses, 20 ms ON, 50% power setting, for 500 ms.
+  // D6: 10 Hz pulses, 20 ms ON, 50% power setting, for 500 ms.
   PWM_PULSE.p1_multipulses(500, 10.0f, 20, 0, 50);
   delay(2000);  // Let the task finish before reusing this channel.
 }
@@ -56,9 +56,9 @@ Output tasks run in interrupts after the call returns. Application `delay()` cal
 Call `PWM_PULSE.init()` to initialize all channels, or initialize only the channels you use:
 
 ```cpp
-PWM_PULSE.p1_init(); // D8 and Timer1.
+PWM_PULSE.p1_init(); // D6 and Timer5.
 PWM_PULSE.p2_init(); // D7 and Timer3; does not reset p1.
-PWM_PULSE.p3_init(); // D6 and Timer5; does not reset p1 or p2.
+PWM_PULSE.p3_init(); // D8 and Timer1; does not reset p1 or p2.
 ```
 
 Timer4 is configured once and shared by all channels. Repeated initialization does not reset active outputs. Per-channel initialization preserves the global interrupt state; interrupts must be enabled for pulse timing. The original `init()` enables global interrupts as before.

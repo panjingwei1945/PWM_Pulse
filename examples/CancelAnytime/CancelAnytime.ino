@@ -3,7 +3,7 @@
 
   Stop output early with p1_cancel(), or fade it out with p1_cancel_ramp().
   This example uses a fixed delay to simulate a runtime stop decision.
-  Arduino Mega 2560: p1 = D8.
+  Arduino Mega 2560: p1 = D6.
 */
 #include <PWM_Pulse.h>
 

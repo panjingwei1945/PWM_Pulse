@@ -5,9 +5,9 @@
  *
  * Fixed channel assignments:
  *   Channel   Arduino pin   PWM source       Timing source
- *   p1        D8            Timer4 / OC4C    Timer1
+ *   p1        D6            Timer4 / OC4A    Timer5
  *   p2        D7            Timer4 / OC4B    Timer3
- *   p3        D6            Timer4 / OC4A    Timer5
+ *   p3        D8            Timer4 / OC4C    Timer1
  * All channels share an approximately 19.98 kHz PWM carrier. Each channel
  * has separate power and pulse timing settings, with a 1 ms timing tick.
  * Other code must not reconfigure Timer4 or an initialized channel's timer. These APIs
@@ -86,9 +86,9 @@ private:
 
 public:
 	void init(); // Initialize all channels; enable global interrupts.
-	void p1_init(); // Initialize D8 and Timer1 once; preserve interrupt state.
+	void p1_init(); // Initialize D6 and Timer5 once; preserve interrupt state.
 	void p2_init(); // Initialize D7 and Timer3 once; preserve interrupt state.
-	void p3_init(); // Initialize D6 and Timer5 once; preserve interrupt state.
+	void p3_init(); // Initialize D8 and Timer1 once; preserve interrupt state.
 	void p1_multipulses(unsigned long duration, float fq, unsigned long p_width, unsigned long pre_trg_delay, int power);
 	void p1_constant( uint32_t duration, unsigned long pre_trg_delay, int power);
 	void p1_constant_ramp( uint32_t duration, unsigned long pre_trg_delay, int power,int ramp_step);

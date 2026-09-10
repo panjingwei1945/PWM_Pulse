@@ -2,7 +2,7 @@
   MultiplePulses
 
   Use p1_multipulses() to generate repeated pulses with adjustable frequency, width and power.
-  Arduino Mega 2560: p1 = D8.
+  Arduino Mega 2560: p1 = D6.
 */
 #include <PWM_Pulse.h>
 

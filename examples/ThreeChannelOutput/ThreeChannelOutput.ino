@@ -2,7 +2,7 @@
   ThreeChannelOutput
 
   Run three output channels together, each with its own power setting.
-  Arduino Mega 2560: p1 = D8, p2 = D7, p3 = D6; D43 marks the request sequence.
+  Arduino Mega 2560: p1 = D6, p2 = D7, p3 = D8; D43 marks the request sequence.
 */
 
 #include <PWM_Pulse.h>

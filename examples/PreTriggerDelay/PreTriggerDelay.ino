@@ -2,7 +2,7 @@
   PreTriggerDelay
 
   Start a constant output after a configurable delay.
-  Arduino Mega 2560: p1 = D8; D43 marks the request sequence.
+  Arduino Mega 2560: p1 = D6; D43 marks the request sequence.
 */
 #include <PWM_Pulse.h>
 
